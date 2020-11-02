@@ -74,3 +74,13 @@ ggsave(file.path("etc", "ret.exits.women.png"), exits_women_plot)
 
 #write out the merged file for the boners who dont know how to use R
 write_csv(transitions, file.path("etc", "ssa.ret.bene.merged.csv"))
+
+zombie_plot <- transitions %>% 
+  filter(date >= ymd('1999-01-01') & date < ymd('2002-01-01')) %>% 
+  select(exits.ret.men, exits.ret.women, exits.spouse.men, exits.spouse.women) %>%
+  ts(frequency = 12, start = c(1999,1)) %>% autoplot + xlab("") + 
+  ylab("Extinguished SSA Retirement Beneficiaries") +
+  scale_y_continuous(labels = scales::comma) +
+    theme( legend.position="bottom" )
+
+ggsave(file.path("etc", "ret.resusitations.png"), zombie_plot)
