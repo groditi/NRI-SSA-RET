@@ -6,6 +6,7 @@ library(lubridate)
 library(ggplot2)
 library(forecast)
 library(tibble)
+library(seasonal)
 
 #new monthly benefit awards and average benefit by sex
 new_benes <- read_csv(file.path("etc", "ssa.ret.bene.new.csv")) 
@@ -154,6 +155,7 @@ err_plot <- thisyearsucks %>%
 cum_err_plot <- thisyearsucks %>% 
   ggplot(aes(x = date)) +
   geom_line(aes(y = cumulative_error), color ="#D55E00") +
+  scale_y_continuous(labels = scales::comma) +
   theme(axis.title.x = element_blank())
 
 library(grid)
